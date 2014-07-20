@@ -1,0 +1,140 @@
+@import "vars.less";
+@import "fonts.less";
+
+body
+{
+	padding-top:0;
+}
+
+.content-container
+{
+    padding-top:0;
+}
+
+.mod-head
+{
+    display:block;
+    width:100%;
+    background-color: @cks-red;
+    color:#fff;
+    font-family:'Source Sans Pro'; 
+    text-transform: uppercase;
+    font-size: 16px;
+    padding:5px;
+
+    .fa
+    {
+        font-size:20px;
+    }
+}
+
+
+.full-width
+{
+    width:100%;
+}
+
+.full-width-homepage, .full-width-homepage img
+{
+    width:100%;
+    user-drag: none; -moz-user-select: none; -webkit-user-drag: none;
+}
+
+.full-width-title-container
+{
+    width:100%;
+    text-align:center;
+    margin-top:@navbar-height;
+}
+.full-width-title
+{
+    font-size:5em;
+    color:#fff;
+    text-transform:uppercase;
+    font-weight:bold;
+    text-align:center;
+    text-shadow: 1px 3px 3px rgba(0, 0, 0, 0.5);
+}
+
+.bottom {    
+    vertical-align:bottom;
+}
+
+/*
+.header-img-home
+{
+    background:url('/static/common/img/draft6.jpg') no-repeat;
+    width:1500px;
+    height:300px;
+    position: relative;
+    margin-top: @navbar-height;
+    left: 50%;
+    margin-left: -750px;
+    display:block;
+}
+*/
+
+.header-home
+{
+    height: 300px;
+    display: block;
+    position:fixed;
+    top:@navbar-height;
+}
+
+.header-img
+{
+    height:100%;
+    display:block;
+    z-index: 1;
+}
+
+.navbar
+{
+    z-index:100;
+    margin-bottom:0 !important; 
+}
+
+.body-content
+{
+    z-index: 10;
+    position:relative;
+    background:#fff;
+    margin-top:300px + @navbar-height;
+    width:100%;
+}
+
+.header-img
+{
+    background:url('/static/common/img/top_bar.jpg') no-repeat;
+    width:1500px;
+    height:95px;
+    position: relative;
+    margin-top: @navbar-height;
+    left: 50%;
+    margin-left: -750px;
+    display:block;
+}
+
+h3.module-header
+{
+    border-left: 5px solid @cks-red;
+    padding-left: 10px;
+}
+
+
+.footer
+{
+    width:100%;
+    display:block;
+    background-color:#777;
+    border-top:2px #999 solid;
+    height:100px;
+    padding:20px;
+    margin-top:20px;
+    color:black;
+}
+
+
+@import "home.less";
+@import "featured-events.less";

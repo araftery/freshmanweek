@@ -1,0 +1,45 @@
+{% extends "common/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-4">
+        <h3 class="module-header">About Freshman Week</h3>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus volutpat vulputate velit non hendrerit. Nulla facilisi. Ut dignissim augue lectus, ac consequat risus suscipit quis. Mauris nec bibendum nulla, eget placerat ipsum. Fusce non pretium nisl, eu elementum odio. Aliquam nec nibh id lacus vestibulum euismod at ac erat. Praesent orci ipsum, ultricies vitae varius non, rhoncus vitae massa. Ut lectus purus, euismod ac venenatis eget, malesuada vel lacus. Vivamus vel quam et velit vulputate convallis. Phasellus non aliquam lorem.
+        </p>    
+    </div>
+    <div class="col-sm-4">
+        <h3 class="module-header">Featured Events</h3>
+
+        <ul class="featured-event-table">
+            {% for event in featured_events %}
+                <a href="{% url 'featured-events' %}#{{ event.name|slugify }}">
+                    <li class="featured-event">
+                        <div class="featured-event-cell event-name">{{ event.name }}</div>
+                        <div class="featured-event-cell event-date">{{ event.start_time|date:"M j"}}</div>
+                    </li>
+                </a>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="col-sm-4">
+        <h3 class="module-header">Helpful Links</h3>
+        <ul>
+            <li>Freshman Dean's Office</li>
+            <li>CS50 Courses</li>
+            <li>Freshman Dorms</li>
+            <li>Inside Harvard</li>
+            <li>Crimson Key Society</li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h3 class="module-header">Freshman Talent Show Audition Sign-Ups</h3>
+    </div>
+</div>
+    
+{% endblock content %}

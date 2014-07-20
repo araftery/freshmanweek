@@ -1,0 +1,10 @@
+Freshman Week Website
+[ ] Top banner w/ quotes
+[ ] Countdown
+[ ] List of events/schedule
+[ ] GCal integration
+[ ] Facebook like
+[ ] Audition signups
+[ ] About CKS + sign up for comp list
+[ ] Inside Harvard
+[ ] Useful Links

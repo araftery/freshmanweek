@@ -1,0 +1,27 @@
+{% extends "common/base.html" %}
+{% load core_tags %}
+
+{% block before_content %}
+{% endblock before_content %}
+
+{% block content %}
+<div class="row">
+
+    <div class="col-md-12">
+        <h4 class="module-header">Featured Events</h3>
+        {% for event in featured_events %}
+            <div class="featured-event" id="{{ event.name|slugify }}">
+                    <h3 class="module-header">{{ event.name }}</h3>
+                    <div class="featured-event-description">
+                        {{ event.description|markdown|safe }}
+                    </div>
+                    <div class="event-details">
+                        <div class="event-location"><strong>Location: </strong>{{ event.location }}</div>
+                        <div class="event-time"><strong>Date: </strong>{{ event.start_time|date:"N j" }}, {{ event.start_time|date:"P" }} - {{ event.end_time|date:"P" }}</div>
+                    </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div><!-- /.row -->    
+{% endblock content %}
