@@ -7,8 +7,8 @@
 {% block content %}
 <div class="row">
 
-    <div class="col-md-12">
-        <h4 class="module-header">Featured Events</h3>
+    <div class="col-md-6">
+        <h2>Featured Events</h2>
         {% for event in featured_events %}
             <div class="featured-event" id="{{ event.name|slugify }}">
                     <h3 class="module-header">{{ event.name }}</h3>
@@ -21,6 +21,10 @@
                     </div>
             </div>
         {% endfor %}
+    </div>
+
+    <div class="col-md-6">
+        <h2>Upcoming Events</h2>
     </div>
 
 </div><!-- /.row -->    

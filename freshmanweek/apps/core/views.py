@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 
 from core.models import Event
+from core.forms import AuditionForm
 
 class HomePageView(TemplateView):
 
@@ -10,10 +11,11 @@ class HomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomePageView, self).get_context_data(**kwargs)
         context['featured_events'] = Event.objects.filter(is_featured=True).order_by('start_time')
+        context['audition_form'] = AuditionForm()
         return context
 
 
-class FeaturedEventsView(TemplateView):
+class EventsView(TemplateView):
 
     template_name = "core/featured-events.html"
 

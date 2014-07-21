@@ -1,5 +1,5 @@
 {% extends "common/base.html" %}
-{% load staticfiles %}
+{% load staticfiles crispy_forms_tags %}
 
 {% block content %}
 <div class="row">
@@ -14,7 +14,7 @@
 
         <ul class="featured-event-table">
             {% for event in featured_events %}
-                <a href="{% url 'featured-events' %}#{{ event.name|slugify }}">
+                <a href="{% url 'events' %}#{{ event.name|slugify }}">
                     <li class="featured-event">
                         <div class="featured-event-cell event-name">{{ event.name }}</div>
                         <div class="featured-event-cell event-date">{{ event.start_time|date:"M j"}}</div>
@@ -39,6 +39,7 @@
 <div class="row">
     <div class="col-sm-12">
         <h3 class="module-header">Freshman Talent Show Audition Sign-Ups</h3>
+        {% crispy audition_form %}
     </div>
 </div>
     

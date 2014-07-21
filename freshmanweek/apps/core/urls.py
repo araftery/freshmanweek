@@ -5,5 +5,5 @@ from core.views import HomePageView, FeaturedEventsView
 
 urlpatterns = patterns('',
     url(r'^$', HomePageView.as_view(), name="core-home"),
-    url(r'^featured-events/$', FeaturedEventsView.as_view(),  name="featured-events"),
+    url(r'^events/$', FeaturedEventsView.as_view(),  name="events"),
 )

@@ -4,6 +4,8 @@
 body
 {
 	padding-top:0;
+    color: #222;
+    background-color:#f9f9f9;
 }
 
 .content-container
@@ -127,14 +129,42 @@ h3.module-header
 {
     width:100%;
     display:block;
-    background-color:#777;
-    border-top:2px #999 solid;
-    height:100px;
+    background-color:#444;
+    border-top:1px #888 solid;
+    height:150px;
     padding:20px;
-    margin-top:20px;
-    color:black;
+    color: #fff;
+    margin-top:50px;
 }
 
+.footer-bottom
+{
+    width:100%;
+    display:block;
+    background-color:#4d4d4d;
+    border-top:1px #4b4b4b solid;
+    color: #fff;
+    height:50px;
+    padding:10px;
+}
+
+.block
+{
+    display:block;
+}
+
+.bg-red
+{
+    background-color: @cks-red;
+    color:#fff;
+    transition: background-color .25s;
+
+    &:hover
+    {
+        color: #fff !important;
+        background-color: darken(@cks-red, 5%);
+    }
+}
 
 @import "home.less";
 @import "featured-events.less";

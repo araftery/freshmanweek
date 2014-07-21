@@ -28,6 +28,7 @@ DEFAULT_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'localflavor',
     )
 
 THIRD_PARTY_APPS = (
@@ -163,6 +164,11 @@ SECRET_KEY = 'ye#fv=lsp5sm@4lg@23(55d64qydp1%=2)wdkr!twr5_827g8n'
 DATABASES = {}
 TIME_ZONE = 'America/New_York'
 
+############################################################
+##### CRISPY FORMS  ########################################
+############################################################
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
 
 ############################################################
 ##### PROJECT-SPECIFIC #####################################
