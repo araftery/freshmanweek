@@ -1,0 +1,37 @@
+{% extends "common/base.html" %}
+{% load core_tags crispy_forms_tags %}
+
+{% block content %}
+<p class="alert alert-warning alert-top"><strong>Almost done!</strong> Please choose a slot and click "submit" below.</p>
+<h1>Available Audition Slots:</h1>
+<form method="POST">
+{% csrf_token %}
+<div class="row">
+    <div class="col-sm-12">
+    {% for session in sessions %}
+    <h4 class="session-heading">{{ session.location }} {{ session.start_time|date:"n/d" }}</h4>
+        <div class="choose-slot-list">
+            {% for slot in session.slots %}
+            <div class="row slot slot-{{ slot.pk }}{% if slot.auditioner %} disabled{% endif %}">
+                    <div class="radio col-xs-1"><input type="radio" name="audition_slot" value="{{ slot.pk }}"{% if slot.auditioner %} disabled="disabled"{% endif %}/></div>
+                    <div class="slot-info col-xs-11">{{ slot.start_time|date:"g:i" }} - {{ slot.end_time|date:"g:i A" }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+<div class="row row-submit text-center">
+        <button class="btn btn-primary btn-block bg-red col-sm-2" type="submit">Submit</button>
+</div>
+</form>
+
+<script>
+$('input[type="radio"]').on('click', function(){
+    var pk = $(this).val();
+    $('.slot').removeClass('selected');
+    $('.slot-' + pk).addClass('selected');
+});
+</script>
+{% endblock content %}

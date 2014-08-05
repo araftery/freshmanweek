@@ -1,4 +1,4 @@
-import os, sys
+import os
 from path import path
 
 ############################################################
@@ -28,20 +28,22 @@ DEFAULT_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'localflavor',
-    )
+)
 
 THIRD_PARTY_APPS = (
     'south',
+    'gunicorn',
     'widget_tweaks',
     'dbbackup',
     'compressor',
-    'crispy_forms'
-    )
+    'crispy_forms',
+    'localflavor',
+)
 
 MY_APPS = (
     'core',
-    )
+    'talentshow',
+)
 
 INSTALLED_APPS = DEFAULT_APPS + THIRD_PARTY_APPS + MY_APPS
 
@@ -68,7 +70,7 @@ MIDDLEWARE_CLASSES = DEFAULT_MIDDLEWARE + THIRD_PARTY_MIDDLEWARE
 ############################################################
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'US/Eastern'
 USE_I18N = False
 USE_L10N = False
 USE_TZ = True
@@ -89,7 +91,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as DEFAULT_T
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
-    ) + DEFAULT_TCP
+) + DEFAULT_TCP
 
 
 ############################################################
@@ -122,7 +124,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 ADMINS = (
     ('Andrew Raftery', 'andrewraftery@gmail.com'),
-    )
+)
 
 
 ############################################################
@@ -142,7 +144,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static_common').replace('\\','/'),
-    )
+)
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -168,7 +170,7 @@ TIME_ZONE = 'America/New_York'
 ##### CRISPY FORMS  ########################################
 ############################################################
 
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 ############################################################
 ##### PROJECT-SPECIFIC #####################################

@@ -5,13 +5,15 @@ DATABASES = {
         'ENGINE':'django.db.backends.postgresql_psycopg2',
         'NAME': 'freshmanweek',
         'USER': 'freshmanweek',
-        'PASSWORD': 'password',
+        'PASSWORD': os.environ.get('db_password'),
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 TEMPLATE_DEBUG = False
 TIME_ZONE = 'America/New_York'
+
+STATIC_ROOT = '/var/www/static/'
+STATIC_URL = '/static/'

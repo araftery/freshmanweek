@@ -9,4 +9,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url('', include('core.urls')),
+    url(r'^talent-show/', include('talentshow.urls')),
 )

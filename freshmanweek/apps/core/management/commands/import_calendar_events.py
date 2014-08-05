@@ -1,10 +1,22 @@
-from django.core.management.base import BaseCommand
-
+import datetime
 from icalendar import Calendar
 import requests
+import pytz
+
+from django.core.management.base import BaseCommand
+from django.db.utils import DataError
+from django.conf import settings
 
 from core.models import Event
 
+timezone = pytz.timezone(settings.TIME_ZONE)
+MAX_DESCRIPTION_LENGTH = 450
+
+def smart_truncate(content, length=100, suffix='...'):
+    if len(content) <= length:
+        return content
+    else:
+        return ' '.join(content[:length+1].split(' ')[0:-1]) + suffix
 
 class Command(BaseCommand):
     """
@@ -18,18 +30,27 @@ class Command(BaseCommand):
         url = args[0]
         cal_data = requests.get(url).content
         cal = Calendar().from_ical(cal_data)
-        events = cal.walk('vevents')
+        events = cal.walk('vevent')
+        Event.objects.filter(from_ics=True).delete()
         for event in events:
-            start_time = event['dtstart'].dt
-            end_time = event['dtend'].dt
-            name = unicode(event['summary'])
-            description = unicode(event['description'])
-            location = unicode(event['location'])
+            end_time = event.get('dtend')
+            if not end_time or not isinstance(end_time.dt, datetime.datetime):
+                continue
+            start_time = event.get('dtstart').dt.replace(year=2014)
+            end_time = event.get('dtend').dt.replace(year=2014)
+            name = event.get('summary')
+            description = event.get('description')
+            location = event.get('location')
 
-            new, created = Event.objects.create(
-                name=name,
-                location=location,
-                description=description,
+            if description:
+                description = smart_truncate(description, MAX_DESCRIPTION_LENGTH)
+
+            new = Event.objects.create(
+                name=unicode(name),
+                location=unicode(location) if location else None,
+                description=unicode(description) if description else None,
                 start_time=start_time,
-                end_time=end_time
+                end_time=end_time,
+                is_featured=False,
+                from_ics=True,
             )

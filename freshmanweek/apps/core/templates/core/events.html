@@ -7,24 +7,45 @@
 {% block content %}
 <div class="row">
 
-    <div class="col-md-6">
+    <div class="col-md-8">
         <h2>Featured Events</h2>
         {% for event in featured_events %}
             <div class="featured-event" id="{{ event.name|slugify }}">
                     <h3 class="module-header">{{ event.name }}</h3>
-                    <div class="featured-event-description">
+                    <div class="event-description">
                         {{ event.description|markdown|safe }}
                     </div>
                     <div class="event-details">
-                        <div class="event-location"><strong>Location: </strong>{{ event.location }}</div>
-                        <div class="event-time"><strong>Date: </strong>{{ event.start_time|date:"N j" }}, {{ event.start_time|date:"P" }} - {{ event.end_time|date:"P" }}</div>
+                    <div class="event-time"><strong>When: </strong>{{ event.start_time|date:"l, N j" }}, {{ event.start_time|date:"P" }} - {{ event.end_time|date:"P" }}</div>
+                    {% if event.location %}<div class="event-location"><strong>Where: </strong>{{ event.location }}</div>{% endif %}
                     </div>
             </div>
         {% endfor %}
     </div>
 
-    <div class="col-md-6">
+    <div class="col-md-4">
         <h2>Upcoming Events</h2>
+
+        {% for event in upcoming_events %}
+        <div class="upcoming-event">
+            <h4>{{ event.name }}</h4>
+
+            {% if event.description %}
+            <div>
+                <p>
+                    {{ event.description }}
+                </p>
+            </div>
+            {% endif %}
+
+            <div class="event-details">
+            <div class="event-time"><strong>When:</strong> {{ event.start_time|date:"n/j"}} {{ event.start_time|date:"P"}} - {{ event.end_time|date:"P"}}</div>
+            {% if event.location %}<div class="event-location"><strong>Where:</strong> {{ event.location }}</div>{% endif %}
+            </div>
+        </div>
+
+
+        {% endfor %}
     </div>
 
 </div><!-- /.row -->    

@@ -5,3 +5,5 @@ node_modules/*
 node_modules/
 harvard_photos/*
 harvard_photos/
+deployment_files/
+deployment_files/*

@@ -1,0 +1,17 @@
+{% extends "common/base.html" %}
+{% load core_tags crispy_forms_tags %}
+
+{% block content %}
+<div class="row">
+
+Info here
+
+</div><!-- /.row -->
+
+<div class="row">
+    <div class="col-sm-12">
+        <h3 class="module-header">Sign Up to Audition!</h3>
+        {% crispy form %}
+    </div>
+</div>
+{% endblock content %}
