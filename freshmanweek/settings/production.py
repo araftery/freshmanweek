@@ -15,5 +15,5 @@ DEBUG = False
 TEMPLATE_DEBUG = False
 TIME_ZONE = 'America/New_York'
 
-STATIC_ROOT = '/home/ubuntu/www/static/'
+STATIC_ROOT = '/webapps/freshmanweek/static/'
 STATIC_URL = '/static/'
