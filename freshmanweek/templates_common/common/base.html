@@ -93,8 +93,9 @@
               </ul>
             </li>
             {% endcomment %}
-
-            <li><a href="/admin">Admin</a></li>
+            {% if user.is_admin %}
+              <li><a href="/admin">Admin</a></li>
+            {% endif %}
 
           </ul>
             <ul class="nav navbar-nav social-icons pull-right desktop-only">
