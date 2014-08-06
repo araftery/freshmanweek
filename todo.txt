@@ -1,10 +1,10 @@
 Freshman Week Website
-[ ] Top banner w/ quotes
-[ ] Countdown
-[ ] List of events/schedule
-[ ] GCal integration
-[ ] Facebook like
-[ ] Audition signups
+[x] Top banner w/ quotes
+[x] Countdown
+[x] List of events/schedule
+[x] GCal integration
+[x] Facebook like
+[x] Audition signups
 [ ] About CKS + sign up for comp list
 [ ] Inside Harvard
-[ ] Useful Links
+[x] Useful Links
