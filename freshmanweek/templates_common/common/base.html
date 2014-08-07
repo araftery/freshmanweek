@@ -21,8 +21,8 @@
   <script src="{% static 'common/js/main.js' %}"></script>
     {% if not debug %}
     {% compress css %}
-      <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}common/less/base.less" />
-      <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}common/bootstrap/less/bootstrap.less" />
+      <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}common/less/base.less" />
+      <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}common/bootstrap/less/bootstrap.less" />
     {% endcompress %}
     {% else %}
       <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}common/less/base.less" />
