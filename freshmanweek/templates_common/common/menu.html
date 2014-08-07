@@ -1,0 +1,5 @@
+{% load core_tags %}
+<li class="{% navactive request 'core-home' %}"><a href="{% url 'core-home' %}">Home</a></li>
+<li class="{% navactive request 'events' %}"><a href="{% url 'events' %}">Events</a></li>
+<li class="{% navactive request 'talentshow-sign-up' %}"><a href="{% url 'talentshow-sign-up' %}">Talent Show</a></li>
+<li class="{% navactive request 'tours' %}"><a href="{% url 'tours' %}">Tours</a></li>
