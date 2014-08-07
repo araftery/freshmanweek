@@ -74,11 +74,11 @@ class AuditionForm(forms.ModelForm):
                 css_class="col-md-12"
             ),
             Div(
-                Submit('submit', 'Submit', css_class="btn bg-red col-md-1 block"),
+                Submit('submit', 'Submit', css_class="btn bg-red block"),
             ),
             Div(
                 Div(
-                    HTML('Groups of up to 4 are permitted. Only one member of a group needs to sign up for an audition.'),
+                    HTML("Groups of up to 4 are permitted. Only one member of a group needs to sign up for an audition. On the next page, you'll be asked to pick a time slot for your audition."),
                     css_class="col-sm-12 help-text",
                 ),
             ),

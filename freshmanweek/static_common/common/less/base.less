@@ -171,10 +171,36 @@ h3.module-header
     display:block;
     background-color:#444;
     border-top:1px #888 solid;
-    height:150px;
+    height:120px;
     padding:20px;
     color: #fff;
     margin-top:50px;
+    color: #dedede;
+}
+
+.link-list
+{
+    padding: 0;
+    list-style: none;
+
+    a 
+    {
+        color: #dedede;
+
+        &:hover
+        {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+}
+
+.crimson-logo
+{
+    background: url('/static/common/img/crimson_logo.png');
+    height: 35px;
+    width: 210px;
+    margin-top:20px;
 }
 
 .footer-bottom
@@ -184,8 +210,19 @@ h3.module-header
     background-color:#4d4d4d;
     border-top:1px #4b4b4b solid;
     color: #fff;
-    height:50px;
     padding:10px;
+    color: #dedede;
+
+    a 
+    {
+        color: #dedede;
+
+        &:hover
+        {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
 }
 
 .block
@@ -252,11 +289,19 @@ h3.module-header
     @media only screen and (min-width: 768px)  { display:none; }
 }
 
-.crimson-logo
+.nospam
 {
-    background: url('/static/common/img/crimson_logo.png');
-    height: 35px;
-    width: 210px;
+    display:none;
+}
+
+.email
+{
+    border-bottom: 1px dotted #000;
+}
+
+.email-white
+{
+    border-color: #fff;
 }
 
 @import "home.less";
