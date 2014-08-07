@@ -92,6 +92,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as DEFAULT_T
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
+    'core.context_processors.debug',
 ) + DEFAULT_TCP
 
 
