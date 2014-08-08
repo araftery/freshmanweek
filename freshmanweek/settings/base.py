@@ -71,10 +71,8 @@ MIDDLEWARE_CLASSES = DEFAULT_MIDDLEWARE + THIRD_PARTY_MIDDLEWARE
 ############################################################
 
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'US/Eastern'
 USE_I18N = False
 USE_L10N = False
-USE_TZ = True
 INTERNAL_IPS = ['*']
 
 ############################################################
@@ -93,6 +91,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as DEFAULT_T
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'core.context_processors.debug',
+    'core.context_processors.is_it_freshmanweek',
 ) + DEFAULT_TCP
 
 
@@ -163,6 +162,8 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 SECRET_KEY = 'ye#fv=lsp5sm@4lg@23(55d64qydp1%=2)wdkr!twr5_827g8n'
 DATABASES = {}
 TIME_ZONE = 'America/New_York'
+USE_TZ = True
+FWK_START_DATE = (2014, 8, 24, 0, 0)
 
 ############################################################
 ##### CRISPY FORMS  ########################################

@@ -1,4 +1,4 @@
-from django.http import Http404
+from django.http import Http404, HttpResponseNotAllowed
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, FormView, UpdateView
@@ -7,6 +7,7 @@ from django.forms.models import model_to_dict
 from django.utils.timezone import now
 
 from core.mixins import AjaxFormViewMixin
+from core.utils.general import is_freshmanweek
 from talentshow.forms import AuditionForm, ChooseAuditionSlotForm, AuditionReminderForm
 from talentshow.models import Auditioner, AuditionSession
 
@@ -34,7 +35,7 @@ class SetAuditionReminderView(AjaxFormViewMixin, UpdateView):
 
     def get_object(self):
         secret = self.request.POST.get('secret')
-        if not secret:
+        if not secret or not is_freshmanweek():
             raise Http404
         return get_object_or_404(Auditioner, secret=secret)
 
@@ -43,6 +44,11 @@ class AuditionerSignUpView(CreateView):
     model = Auditioner
     form_class = AuditionForm
     template_name = 'talentshow/sign-up.html'
+
+    def post(self, request, *args, **kwargs):
+        if not is_freshmanweek():
+            return HttpResponseNotAllowed(['GET'])
+        return super(AuditionerSignUpView, self).post(request, *args, **kwargs)
 
     def get_success_url(self):
         success_url = reverse('talentshow-choose-slot', kwargs={'secret': self.object.secret})
@@ -72,7 +78,7 @@ class ChooseAuditionSlotView(FormView):
         slot yet.
         """
         secret = self.kwargs.get('secret')
-        if not secret or not Auditioner.objects.filter(secret=secret).exists():
+        if not secret or not Auditioner.objects.filter(secret=secret).exists() or not is_freshmanweek():
             raise Http404
 
         if Auditioner.objects.filter(secret=secret).exclude(auditionslot=None).exists():
@@ -88,7 +94,7 @@ class ChooseAuditionSlotView(FormView):
         slot yet.
         """
         secret = self.kwargs.get('secret')
-        if not secret or not Auditioner.objects.filter(secret=secret).exists():
+        if not secret or not Auditioner.objects.filter(secret=secret).exists() or not is_freshmanweek():
             raise Http404
 
         if Auditioner.objects.filter(secret=secret).exclude(auditionslot=None).exists():

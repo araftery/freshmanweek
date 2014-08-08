@@ -25,7 +25,7 @@
 
     <div class="col-md-4">
         <h2>Upcoming Events</h2>
-
+    {% if is_fwk %}
         {% for event in upcoming_events %}
         <div class="upcoming-event">
             <h4>{{ event.name }}</h4>
@@ -46,6 +46,10 @@
 
 
         {% endfor %}
+    {% else %}
+        Check back here during Freshman Week for an up-to-date list of upcoming events!
+    {% endif %}
+
     </div>
 
 </div><!-- /.row -->    

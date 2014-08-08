@@ -19,7 +19,11 @@
 <div class="row">
     <div class="col-sm-12">
         <h3 class="module-header">Sign Up to Audition!</h3>
-        {% crispy form %}
+            {% if is_fwk %}
+                {% crispy form %}
+            {% else %}
+                Come back during Freshman Week and sign up to audition for the talent show!
+            {% endif %}
     </div>
 </div>
 {% endblock content %}
