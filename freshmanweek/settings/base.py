@@ -150,6 +150,9 @@ STATICFILES_FINDERS = (
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),
 )
+COMPRESS_CSS_FILTERS = (
+     'compressor.filters.cssmin.CSSMinFilter',
+)
 
 
 ############################################################
