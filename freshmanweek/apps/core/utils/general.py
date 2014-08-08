@@ -7,8 +7,8 @@ from django.conf import settings
 tz = pytz.timezone(settings.TIME_ZONE)
 
 def is_freshmanweek():
-    if hasattr(settings, 'is_fwk'):
-        return settings.is_fwk
+    if hasattr(settings, 'IS_FWK'):
+        return settings.IS_FWK
     else:
         fwk_start = datetime.datetime(*settings.FWK_START_DATE)
         now = datetime.datetime.now()

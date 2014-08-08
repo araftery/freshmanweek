@@ -163,7 +163,8 @@ SECRET_KEY = 'ye#fv=lsp5sm@4lg@23(55d64qydp1%=2)wdkr!twr5_827g8n'
 DATABASES = {}
 TIME_ZONE = 'America/New_York'
 USE_TZ = True
-FWK_START_DATE = (2014, 7, 24, 0, 0)
+FWK_START_DATE = (2014, 8, 24, 0, 0)
+IS_FWK = True
 
 ############################################################
 ##### CRISPY FORMS  ########################################
