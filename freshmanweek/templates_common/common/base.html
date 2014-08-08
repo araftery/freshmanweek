@@ -21,6 +21,17 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
+    {% if not debug %}
+    {% compress css %}
+      <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}common/less/base.less" />
+      <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}common/bootstrap/less/bootstrap.less" />
+    {% endcompress %}
+    {% else %}
+      <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}common/less/base.less" />
+      <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}common/bootstrap/less/bootstrap.less" />
+      <script src="{% static 'common/js/less-1.7.3.min.js' %}"></script>
+    {% endif %}
+    
     <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -149,15 +160,5 @@
   <script src="{% static 'common/js/jquery.scrollTo.min.js' %}"></script>
   <script src="{% static 'common/js/smooth_scroll.js' %}"></script>
   <script src="{% static 'common/js/main.js' %}"></script>
-    {% if not debug %}
-    {% compress css %}
-      <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}common/less/base.less" />
-      <link rel="stylesheet" type="text/less" media="all" href="{{ STATIC_URL }}common/bootstrap/less/bootstrap.less" />
-    {% endcompress %}
-    {% else %}
-      <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}common/less/base.less" />
-      <link rel="stylesheet/less" type="text/css" media="all" href="{{ STATIC_URL }}common/bootstrap/less/bootstrap.less" />
-      <script src="{% static 'common/js/less-1.7.3.min.js' %}"></script>
-    {% endif %}
   </body>
 </html>
