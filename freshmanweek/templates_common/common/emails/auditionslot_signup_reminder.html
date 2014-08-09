@@ -1,0 +1,12 @@
+{% extends "common/emails/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block email_body %}
+    <h1 style="line-height:32px;">Choose a time slot for your audition</h1>
+    <p>Hi {{ auditioner.first_name }},</p>
+    <p>This is a reminder that you haven't chosen a time slot yet for your Freshman Talent Show audition. You must choose a slot in order to be eligible to audition.</p>
+    <p>You can choose a slot here: <a href="{{ SITE_URL }}{% url 'talentshow-choose-slot' secret=auditioner.secret %}">{{ SITE_URL }}{% url 'talentshow-choose-slot' secret=auditioner.secret %}</a></p>
+    <p>See you soon,<br />
+    The Crimson Key Society</p>
+{% endblock %}

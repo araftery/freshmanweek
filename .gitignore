@@ -7,3 +7,5 @@ harvard_photos/*
 harvard_photos/
 deployment_files/
 deployment_files/*
+celerybeat.pid
+celerybeat-schedule

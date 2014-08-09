@@ -1,5 +1,6 @@
 from django.http import Http404, HttpResponseNotAllowed
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, FormView, UpdateView
 from django.shortcuts import get_object_or_404
@@ -7,6 +8,7 @@ from django.forms.models import model_to_dict
 from django.utils.timezone import now
 
 from core.mixins import AjaxFormViewMixin
+from core.tasks import send_email
 from core.utils.general import is_freshmanweek
 from talentshow.forms import AuditionForm, ChooseAuditionSlotForm, AuditionReminderForm
 from talentshow.models import Auditioner, AuditionSession
@@ -108,6 +110,14 @@ class ChooseAuditionSlotView(FormView):
         auditioner = Auditioner.objects.get(secret=secret)
         slot.auditioner = auditioner
         slot.save()
+
+        send_email.delay(
+            template_name='audition_confirm',
+            subject='Talent Show Audition Confirmation',
+            from_email=settings.HARVARD_TALENT_EMAIL,
+            recipients=[slot.auditioner.email],
+            context={'slot': slot}
+        )
 
         reminder_form = AuditionReminderForm(instance=auditioner)
         if not auditioner.phone:

@@ -23,3 +23,5 @@ DATABASES = {
 
 DEBUG = True
 TEMPLATE_DEBUG = True
+
+SETTINGS_MOUDLE = 'freshmanweek.settings.development'

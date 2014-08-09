@@ -29,3 +29,5 @@ DATABASES = {
 
 DEBUG = False
 TEMPLATE_DEBUG = False
+
+SETTINGS_MOUDLE = 'freshmanweek.settings.production_vps'

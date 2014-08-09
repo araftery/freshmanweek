@@ -1,0 +1,11 @@
+{% extends "common/emails/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block email_body %}
+    <h1 style="line-height:32px;">Thanks for signing up to audition!</h1>
+    <p>Hi {{ slot.auditioner.first_name }},</p>
+    <p>Your audition for the Freshman Talent Show will be at <strong>{{ slot.start_time|date:"g:i A" }}</strong> on <strong>{{ slot.start_time|date:"D, n/d" }}</strong> in <strong>{{ slot.location }}</strong>. Please limit your act to roughly 5 minutes. Audition slots are only 10 minutes long, so please arrive early! There's a piano available at the audition site. Groups of up to 4 are permitted. If you have any questions, feel free to reply to this email and we'll get back to you promptly.</p>
+    <p>See you soon,<br />
+    The Crimson Key Society</p>
+{% endblock %}

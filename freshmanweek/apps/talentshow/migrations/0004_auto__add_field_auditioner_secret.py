@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Auditioner.secret'
         db.add_column(u'talentshow_auditioner', 'secret',
-                      self.gf('django.db.models.fields.CharField')(default='test', max_length=40),
+                      self.gf('django.db.models.fields.CharField')(default='default', max_length=40),
                       keep_default=False)
 
 
@@ -30,7 +30,10 @@ class Migration(SchemaMigration):
             'phone': ('localflavor.us.models.PhoneNumberField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
             'reminder_email': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'reminder_text': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'secret': ('django.db.models.fields.CharField', [], {'default': "'test'", 'max_length': '40'}),
+            'secret': ('django.db.models.fields.CharField', [], {'default': "'default'", 'max_length': '40'}),
+            'sent_reminder_email': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'sent_reminder_text': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'sent_slot_reminder_email': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'time_registered': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'})
         },
         u'talentshow.auditionsession': {
@@ -40,7 +43,7 @@ class Migration(SchemaMigration):
         },
         u'talentshow.auditionslot': {
             'Meta': {'object_name': 'AuditionSlot'},
-            'auditioner': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['talentshow.Auditioner']", 'unique': 'True', 'null': 'True', 'blank': 'True'}),
+            'auditioner': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['talentshow.Auditioner']", 'unique': 'True', 'null': 'True', 'on_delete': 'models.SET_NULL', 'blank': 'True'}),
             'end_time': ('django.db.models.fields.DateTimeField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'session': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['talentshow.AuditionSession']"}),

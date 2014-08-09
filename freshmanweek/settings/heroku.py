@@ -23,3 +23,5 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 DEBUG = False
 TEMPLATE_DEBUG = False
+
+SETTINGS_MOUDLE = 'freshmanweek.settings.heroku'

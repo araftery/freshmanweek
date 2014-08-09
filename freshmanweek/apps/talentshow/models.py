@@ -1,3 +1,4 @@
+import datetime
 import pytz
 import random
 import string
@@ -27,10 +28,15 @@ class Auditioner(models.Model):
     email = models.EmailField(max_length=254, unique=True)
     phone = PhoneNumberField(null=True, blank=True)
     description = models.CharField(max_length=500)
-    time_registered = models.DateTimeField(default=timezone.now)
+    time_registered = models.DateTimeField(default=datetime.datetime.now)
     reminder_email = models.BooleanField(default=False)
     reminder_text = models.BooleanField(default=False)
-    secret = models.CharField(default=_generate_secret, max_length=40)
+
+    secret = models.CharField(default=_generate_secret, max_length=40, unique=True)
+
+    sent_reminder_email = models.BooleanField(default=False)
+    sent_reminder_text = models.BooleanField(default=False)
+    sent_slot_reminder_email = models.BooleanField(default=False)
 
     def full_name(self):
         return u'{} {}'.format(self.first_name, self.last_name)

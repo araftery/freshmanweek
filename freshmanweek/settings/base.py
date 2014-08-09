@@ -1,4 +1,7 @@
+from datetime import timedelta
 import os
+
+from celery.schedules import crontab
 from path import path
 
 ############################################################
@@ -28,6 +31,7 @@ DEFAULT_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 )
 
 THIRD_PARTY_APPS = (
@@ -39,6 +43,8 @@ THIRD_PARTY_APPS = (
     'crispy_forms',
     'localflavor',
     'djrill',
+    'djcelery',
+    'django_twilio',
 )
 
 MY_APPS = (
@@ -104,14 +110,6 @@ LOGIN_REDIRECT_URL = '/'
 URL_PATH = ''
 
 ############################################################
-##### AWS ##################################################
-############################################################
-
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
-
-############################################################
 ##### EMAIL ################################################
 ############################################################
 
@@ -122,16 +120,6 @@ EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 ADMINS = (
     ('Andrew Raftery', 'andrewraftery@gmail.com'),
 )
-
-
-############################################################
-##### DB BACKUPS ###########################################
-############################################################
-
-DBBACKUP_STORAGE = 'dbbackup.storage.s3_storage'
-DBBACKUP_S3_BUCKET = AWS_STORAGE_BUCKET_NAME
-DBBACKUP_S3_ACCESS_KEY = AWS_ACCESS_KEY_ID
-DBBACKUP_S3_SECRET_KEY = AWS_SECRET_ACCESS_KEY
 
 ############################################################
 ##### STATIC FILES #########################################
@@ -166,8 +154,7 @@ SECRET_KEY = 'ye#fv=lsp5sm@4lg@23(55d64qydp1%=2)wdkr!twr5_827g8n'
 DATABASES = {}
 TIME_ZONE = 'America/New_York'
 USE_TZ = True
-FWK_START_DATE = (2014, 8, 24, 0, 0)
-IS_FWK = True
+SITE_ID = 1
 
 ############################################################
 ##### CRISPY FORMS  ########################################
@@ -179,4 +166,21 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 ##### PROJECT-SPECIFIC #####################################
 ############################################################
 
+HARVARD_TALENT_EMAIL = 'Harvard Talent Show 2018 <harvardtalent2018@gmail.com>'
+TWILIO_PHONE_NUMBER = '+16172998450'
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
 
+FWK_START_DATE = (2014, 8, 24, 0, 0)
+IS_FWK = True
+
+
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+BROKER_URL = "amqp://freshmanweek:freshmanweek@localhost:5672/freshmanweek"
+CELERY_RESULT_DBURI = "postgresql://freshmanweek:password@localhost/freshmanweek"
+CELERY_ENABLE_UTC = True
+CELERY_TIMEZONE = TIME_ZONE
+
+# put these two lines at the very bottom of the settings file
+import djcelery
+djcelery.setup_loader()
