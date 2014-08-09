@@ -44,7 +44,6 @@ THIRD_PARTY_APPS = (
     'localflavor',
     'djrill',
     'djcelery',
-    'django_twilio',
 )
 
 MY_APPS = (
