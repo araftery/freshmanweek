@@ -14,3 +14,11 @@ class Event(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class FeaturedEvent(Event):
+    def __init__(self, *args, **kwargs):
+        self._meta.get_field('is_featured').default = True
+        super(FeaturedEvent, self).__init__(*args, **kwargs)
+
+    class Meta:
+        proxy = True
