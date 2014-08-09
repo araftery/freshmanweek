@@ -1,3 +1,28 @@
+function load_instagram(limit)
+{
+    if (!limit)
+    {
+        limit = 3;
+    }
+    $feed = $('.instagram-feed .feed');
+    $.ajax({
+        url: 'https://api.instagram.com/v1/users/1436010400/media/recent/?client_id=4d7350a23d64425682e91d87c37f50c0&callback=instagramCallback',
+        crossDomain: true,
+        type: 'GET',
+        dataType: 'jsonp',
+        success: function(data) {
+            $('.instagram-feed .loading').remove();
+            $.each(data.data, function(i, gram) {
+                if (i < limit)
+                {
+                    $feed.append('<div class="embed-responsive embed-responsive-instagram"><iframe src="' + gram.link + 'embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe></div>');
+                }
+            });
+        },
+    });
+
+}
+
 $(function(){
     function build_error(field, msg)
     {

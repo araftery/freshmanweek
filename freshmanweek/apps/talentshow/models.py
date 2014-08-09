@@ -58,9 +58,9 @@ class AuditionSession(models.Model):
         end = self.auditionslot_set.order_by('start_time').last()
         return end.get_end_time() if end else None
 
-    @property
     def remaining_slots_exist(self):
-        return self.auditionslot_set.filter(start_time__gte=timezone.now(), auditioner=None).order_by('start_time').exists()
+        six_hours_ahead = timezone.now() + datetime.timedelta(hours=6)
+        return self.auditionslot_set.filter(start_time__gte=six_hours_ahead, auditioner=None).exists()
 
     def __unicode__(self):
         start_time = self.start_time

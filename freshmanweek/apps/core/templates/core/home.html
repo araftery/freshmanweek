@@ -32,7 +32,7 @@
             <div class="col-sm-6">
                 <h3 class="module-header">Ticketing Information</h3>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus volutpat vulputate velit non hendrerit. Nulla facilisi. Ut dignissim augue lectus, ac consequat risus suscipit quis. Mauris nec bibendum nulla, eget placerat ipsum. Fusce non pretium nisl, eu elementum odio. Aliquam nec nibh id lacus vestibulum euismod at ac erat. Praesent orci ipsum, ultricies vitae varius non, rhoncus vitae massa. Ut lectus purus, euismod ac venenatis eget, malesuada vel lacus. Vivamus vel quam et velit vulputate convallis. Phasellus non aliquam lorem.
+                    Ticketing information coming soon.
                 </p>    
             </div>
 
@@ -59,21 +59,19 @@
     <div class="col-sm-4">
         <div class="col-sm-12 instagram-feed">
             <h3 class="module-header">Instagram Feed</h3>
-            <div class="responsive-embed">
-                <iframe src="//instagram.com/p/rYiGKrhkY9/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+            <div class="loading">
+                <img src="{% static 'common/img/loading/loading-bars.svg' %}" alt="Loading..." />
             </div>
-        </div>
-        <div class="col-sm-12 instagram-feed">
-            <div class="responsive-embed">
-                <iframe src="//instagram.com/p/rP4g1mhkY8/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-            </div>
-        </div>
-        <div class="col-sm-12 instagram-feed">
-            <div class="responsive-embed">
-                <iframe src="//instagram.com/p/rP28BmhkUz/embed/" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-            </div>
+            <div class="feed"></div>
         </div>
     </div>
 </div>
-    
+
+<script>
+{% if is_fwk %}
+    load_instagram(3);
+{% else %}
+    load_instagram(2);
+{% endif %}
+</script>
 {% endblock content %}

@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import Http404, HttpResponseNotAllowed
 from django.core.urlresolvers import reverse
 from django.conf import settings
@@ -66,11 +68,12 @@ class ChooseAuditionSlotView(FormView):
         context = super(ChooseAuditionSlotView, self).get_context_data(**kwargs)
         sessions = list(AuditionSession.objects.all())
         for session in sessions:
-            if now() > session.last_time or not session.remaining_slots_exist:
+            if not session.remaining_slots_exist():
                 sessions.remove(session)
         sessions.sort(key=lambda x: x.start_time)
+        six_hours_ahead = now() + datetime.timedelta(hours=6)
         for session in sessions:
-            session.slots = session.auditionslot_set.filter(start_time__gte=now(), auditioner=None).order_by('start_time')
+            session.slots = session.auditionslot_set.filter(start_time__gte=six_hours_ahead, auditioner=None).order_by('start_time')
         context['sessions'] = sessions
         return context
 
@@ -85,8 +88,10 @@ class ChooseAuditionSlotView(FormView):
 
         if Auditioner.objects.filter(secret=secret).exclude(auditionslot=None).exists():
             person = Auditioner.objects.filter(secret=secret).exclude(auditionslot=None)[0]
-            return render(self.request, 'talentshow/sign-up-success.html', {'slot': person.auditionslot, 'auditioner': person})
-            #return redirect('talentshow-cannot-change-slot')
+            reminder_form = AuditionReminderForm(instance=person)
+            if not person.phone:
+                reminder_form.fields.pop('reminder_text')
+            return render(self.request, 'talentshow/sign-up-success.html', {'slot': person.auditionslot, 'auditioner': person, 'reminder_form': reminder_form})
 
         return super(ChooseAuditionSlotView, self).get(request, *args, **kwargs)
 
@@ -100,7 +105,11 @@ class ChooseAuditionSlotView(FormView):
             raise Http404
 
         if Auditioner.objects.filter(secret=secret).exclude(auditionslot=None).exists():
-            return redirect('talentshow-cannot-change-slot')
+            person = Auditioner.objects.filter(secret=secret).exclude(auditionslot=None)[0]
+            reminder_form = AuditionReminderForm(instance=person)
+            if not person.phone:
+                reminder_form.fields.pop('reminder_text')
+            return render(self.request, 'talentshow/sign-up-success.html', {'slot': person.auditionslot, 'auditioner': person, 'reminder_form': reminder_form})
 
         return super(ChooseAuditionSlotView, self).post(request, *args, **kwargs)
 
