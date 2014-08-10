@@ -32,14 +32,14 @@
             <div class="col-sm-6">
                 <h3 class="module-header">Ticketing Information</h3>
                 <p>
-                    Ticketing information coming soon.
+                Tickets are required for admission to the Freshman Talent Show and the Love Story screenings. You can get Freshman Talent Show tickets free-of-charge with your Harvard ID at Sanders Theatre on the evening of the show, starting at 5pm. Tickets are limited and will be distributed on a first-come, first-served basis. Love Story tickets can be purchased for $5 at dinner in Annenberg the evening of the show or at the door. See the <a href="{% url 'events' %}">events page</a> for more information.
                 </p>    
             </div>
 
             <div class="col-sm-6">
                 <h3 class="module-header">T-Shirts</h3>
                 <p>
-                    You can buy a Class of 2018 t-shirt with the Cr1m8on logo for $15 at the Information Tent in Harvard Yard. Sorry, we don't accept cash. Credit cards only!
+                    {% if not is_fwk %}During Freshman Week, you{% else %}You{% endif %} can buy a Class of 2018 t-shirt with the Cr1m8on logo for $15 at the Information Tent in Harvard Yard. Sorry, we don't accept cash. Credit cards only!
                 </p>    
             </div>
         </div>
