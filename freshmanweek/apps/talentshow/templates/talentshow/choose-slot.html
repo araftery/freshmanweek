@@ -3,6 +3,9 @@
 
 {% block content %}
 <p class="alert alert-warning alert-top"><strong>Almost done!</strong> Please choose a slot and click "submit" below.</p>
+{% if form.errors %}
+    <p class="alert alert-danger alert-top"><strong>Error:</strong> You must select an available slot from the options below.</p>
+{% endif %}
 <h1>Available Audition Slots:</h1>
 <form method="POST">
 {% csrf_token %}
@@ -14,7 +17,7 @@
             {% for slot in session.slots %}
             <div class="row slot slot-{{ slot.pk }}{% if slot.auditioner %} disabled{% endif %}">
                     <div class="radio col-xs-1"><input type="radio" name="audition_slot" value="{{ slot.pk }}"{% if slot.auditioner %} disabled="disabled"{% endif %}/></div>
-                    <div class="slot-info col-xs-11">{{ slot.start_time|date:"g:i" }} - {{ slot.end_time|date:"g:i A" }}</div>
+                    <div class="slot-info col-xs-8">{{ slot.start_time|date:"g:i" }} - {{ slot.end_time|date:"g:i A" }}</div>
             </div>
             {% endfor %}
         </div>

@@ -26,9 +26,9 @@ def send_text(template_name, recipient, context):
 
 @periodic_task(run_every=crontab(hour="*/2", minute=0))
 def send_reminder_chooseslot_emails():
-    four_hours_ago = timezone.now() - datetime.timedelta(hours=4)
+    one_hour_ago = timezone.now() - datetime.timedelta(hours=1)
     auditioners = Auditioner.objects.filter(
-        time_registered__lte=four_hours_ago,
+        time_registered__lte=one_hour_ago,
         auditionslot=None,
         sent_slot_reminder_email=False
     )
