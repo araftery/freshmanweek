@@ -97,6 +97,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'core.context_processors.debug',
     'core.context_processors.is_it_freshmanweek',
+    'core.context_processors.site_url',
 ) + DEFAULT_TCP
 
 
