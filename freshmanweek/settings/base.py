@@ -171,7 +171,7 @@ TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
 
 FWK_START_DATE = (2014, 8, 24, 0, 0)
-IS_FWK = True
+#IS_FWK = True
 
 
 CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
