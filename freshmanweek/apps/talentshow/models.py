@@ -109,4 +109,5 @@ class AuditionSignUpReminder(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     email = models.EmailField(max_length=254, unique=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
