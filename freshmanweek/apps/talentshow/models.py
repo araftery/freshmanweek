@@ -28,7 +28,7 @@ class Auditioner(models.Model):
     email = models.EmailField(max_length=254, unique=True)
     phone = PhoneNumberField(null=True, blank=True)
     description = models.CharField(max_length=500)
-    time_registered = models.DateTimeField(default=datetime.datetime.now)
+    time_registered = models.DateTimeField(auto_now_add=True, blank=True)
     reminder_email = models.BooleanField(default=False)
     reminder_text = models.BooleanField(default=False)
 
@@ -109,5 +109,5 @@ class AuditionSignUpReminder(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     email = models.EmailField(max_length=254, unique=True)
-    created_at = models.DateTimeField(default=timezone.now, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
