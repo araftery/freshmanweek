@@ -50,7 +50,12 @@
                 {% if is_fwk %}
                     {% crispy audition_form %}
                 {% else %}
-                    Come back during Freshman Week and sign up to audition for the talent show!
+                <div class="js-signup-reminder-module-container">
+                    <p>Sorry, talent show audition sign-ups aren't open yet! They'll open on August 24th, the night before Freshman Move-In Day. If you'd like an email when they open, fill out the form below:</p>
+                    <div class="js-signup-reminder-container">
+                        {% crispy audition_signup_reminder_form %}
+                    </div>
+                </div>
                 {% endif %}
             </div>
         </div>
@@ -66,6 +71,41 @@
         </div>
     </div>
 </div>
+
+<script>
+    function toTitleCase(str)
+    {
+        return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    }
+
+    $('.js-signup-reminder-btn').on('click', function(e){
+        e.preventDefault();
+        $('.js-signup-reminder-form-error').remove();
+        var $form = $('#audition-signup-reminder-form');
+        var data = $form.serializeArray();
+        $.ajax({
+            type:"POST",
+            url:"/talent-show/set-signup-reminder/",
+            data: data,
+            success: function(response){
+                if (response.errors) {
+                    $.each(response.errors, function(field, msg) {
+                        var errorMessage = '<p class="alert alert-danger js-signup-reminder-form-error"><strong>' + toTitleCase(field.replace('_', ' ')) + ':</strong> ' + msg + '</p>';
+                        $('.js-signup-reminder-container').prepend(errorMessage);
+                    });
+                } else {
+                    var successMessage = "<p class='alert alert-success'><strong>Success!</strong> We'll send you an email when the sign-up form opens!</p>";
+                    $('.js-signup-reminder-module-container').html(successMessage);
+                }
+            },
+            error: function(xhr, textStatus, errorThrown){
+                var errorMessage = '<p class="alert alert-danger js-signup-reminder-form-error">Sorry, an error occurred.</p>';
+                $('.js-signup-reminder-container').prepend(errorMessage);
+            }
+        });
+    });
+</script>
+
 
 <script>
 {% if is_fwk %}

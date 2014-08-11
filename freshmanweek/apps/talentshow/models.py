@@ -104,3 +104,9 @@ class AuditionSlot(models.Model):
         end_time = self.get_end_time()
         return '{} - {} at {}'.format(start_time.strftime('%m/%d/%y %X'), end_time.strftime('%X') if end_time.date() == start_time.date() else end_time.strftime('%m/%d/%y %X'), self.session.location)        
 
+
+class AuditionSignUpReminder(models.Model):
+    first_name = models.CharField(max_length=200)
+    last_name = models.CharField(max_length=200)
+    email = models.EmailField(max_length=254, unique=True)
+

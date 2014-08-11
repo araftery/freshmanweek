@@ -116,3 +116,47 @@ class AuditionReminderForm(forms.ModelForm):
         model = Auditioner
         fields = ('reminder_email', 'reminder_text', 'secret')
 
+
+class AuditionSignUpReminderForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(AuditionSignUpReminderForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.form_class = ''
+        self.helper.form_id = 'audition-signup-reminder-form'
+        self.helper.form_name = 'audition-signup-reminder-form'
+        self.helper.label_class = 'control-label'
+        self.helper.html5_required = True
+
+        self.helper.layout = Layout(
+            Div(
+                Div(
+                    Field('first_name', css_class="form-control"),
+                    css_class="form-group"
+                ),
+                css_class="col-md-6"
+            ),
+            Div(
+                Div(
+                    Field('last_name', css_class="form-control"),
+                    css_class="form-group"
+                ),
+                css_class="col-md-6"
+            ),
+            Div(
+                Div(
+                    Field('email', css_class="form-control"),
+                    css_class="form-group"
+                ),
+                css_class="col-md-12"
+            ),
+            Div(
+                Submit('submit', 'Set Reminder', css_class="btn bg-red block js-signup-reminder-btn"),
+            ),
+        )
+
+    class Meta:
+        model = Auditioner
+        fields = ('first_name', 'last_name', 'email',)

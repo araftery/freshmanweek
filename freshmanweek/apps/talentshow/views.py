@@ -12,8 +12,8 @@ from django.utils.timezone import now
 from core.mixins import AjaxFormViewMixin
 from core.tasks import send_email
 from core.utils.general import is_freshmanweek
-from talentshow.forms import AuditionForm, ChooseAuditionSlotForm, AuditionReminderForm
-from talentshow.models import Auditioner, AuditionSession
+from talentshow.forms import AuditionForm, ChooseAuditionSlotForm, AuditionReminderForm, AuditionSignUpReminderForm
+from talentshow.models import Auditioner, AuditionSession, AuditionSignUpReminder
 
 
 class SetAuditionReminderView(AjaxFormViewMixin, UpdateView):
@@ -134,4 +134,8 @@ class ChooseAuditionSlotView(FormView):
 
         return render(self.request, 'talentshow/sign-up-success.html', {'slot': slot, 'auditioner': auditioner, 'reminder_form': reminder_form})
 
+
+class SetAuditionSignUpReminderView(AjaxFormViewMixin, CreateView):
+    form = AuditionSignUpReminderForm
+    model = AuditionSignUpReminder
 
