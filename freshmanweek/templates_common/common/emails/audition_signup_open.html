@@ -1,21 +1,21 @@
 {% extends 'common/emails/alert_base.html' %}
 {% block meta_title %}{{ title }}{% endblock %}
 {% block alert_level %}cks{% endblock %}
-{% block heading %}Choose a time slot for your audition{% endblock %}
+{% block heading %}Freshman Talent Show signups are now open!{% endblock %}
 {% block inner_content %}
     <tr>
         <td class="content-block">
-            Hi {{ auditioner.first_name }},
+            Hi {{ person.first_name }},
         </td>
     </tr>
     <tr>
         <td class="content-block">
-            This is a reminder that you haven't chosen a time slot yet for your Freshman Talent Show audition. You must choose a slot in order to be eligible to audition.
+            Audition sign-ups for the Freshman Talent Show are now open! Click the button below and fill out the form at the bottom of the page to sign up.
         </td>
     </tr>
     <tr>
         <td class="content-block">
-            <a href="{{ SITE_URL }}{% url 'talentshow-choose-slot' secret=auditioner.secret %}" class="btn-primary">Choose a Slot Now</a>
+            <a href="{{ SITE_URL }}{% url 'talentshow-sign-up' %}" class="btn-primary">Sign Up to Audition</a>
         </td>
     </tr>
     <tr>

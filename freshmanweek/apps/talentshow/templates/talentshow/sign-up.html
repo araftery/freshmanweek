@@ -20,7 +20,11 @@
     <div class="col-sm-12">
         <h3 class="module-header">Sign Up to Audition!</h3>
             {% if is_fwk %}
-                {% crispy form %}
+                {% if audition_signup_open %}
+                    {% crispy form %}
+                {% else %}
+                    <p>Sorry, talent show auditions are now closed.</p>
+                {% endif %}
             {% else %}
                 Come back during Freshman Week and sign up to audition for the talent show!
             {% endif %}

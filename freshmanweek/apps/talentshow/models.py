@@ -9,9 +9,9 @@ from django.conf import settings
 
 from localflavor.us.models import PhoneNumberField
 
-# Create your models here.
 
 tz = pytz.timezone(settings.TIME_ZONE)
+
 
 def _generate_secret():
     while True:
@@ -29,7 +29,7 @@ class Auditioner(models.Model):
     phone = PhoneNumberField(null=True, blank=True)
     description = models.CharField(max_length=500)
     time_registered = models.DateTimeField(auto_now_add=True, blank=True)
-    reminder_email = models.BooleanField(default=False)
+    reminder_email = models.BooleanField(default=True)
     reminder_text = models.BooleanField(default=False)
 
     secret = models.CharField(default=_generate_secret, max_length=40, unique=True)
@@ -63,8 +63,8 @@ class AuditionSession(models.Model):
         return self.auditionslot_set.filter(start_time__gte=six_hours_ahead, auditioner=None).exists()
 
     def __unicode__(self):
-        start_time = self.start_time
-        last_time = self.last_time
+        start_time = timezone.localtime(self.start_time)
+        last_time = timezone.localtime(self.last_time)
 
         if not start_time or not last_time:
             return self.location
@@ -99,9 +99,30 @@ class AuditionSlot(models.Model):
     def get_end_time(self):
         return self.end_time.astimezone(tz)
 
+    def as_csv_dict(self):
+        if self.auditioner:
+            return {
+                'Slot Time': timezone.localtime(self.start_time).strftime('%I:%M %p'),
+                'First Name': self.auditioner.first_name,
+                'Last Name': self.auditioner.last_name,
+                'Email': self.auditioner.email,
+                'Phone': self.auditioner.phone,
+                'Act Description': self.auditioner.description,
+            }
+        else:
+            return {
+                'Slot Time': timezone.localtime(self.start_time).strftime('%I:%M %p'),
+                'First Name': '',
+                'Last Name': '',
+                'Email': '',
+                'Phone': '',
+                'Act Description': '',
+            }
+
+
     def __unicode__(self):
-        start_time = self.get_start_time()
-        end_time = self.get_end_time()
+        start_time = timezone.localtime(self.get_start_time())
+        end_time = timezone.localtime(self.get_end_time())
         return '{} - {} at {}'.format(start_time.strftime('%m/%d/%y %X'), end_time.strftime('%X') if end_time.date() == start_time.date() else end_time.strftime('%m/%d/%y %X'), self.session.location)        
 
 

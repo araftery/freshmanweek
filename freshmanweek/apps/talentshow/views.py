@@ -11,7 +11,7 @@ from django.utils.timezone import now
 
 from core.mixins import AjaxFormViewMixin
 from core.tasks import send_email
-from core.utils.general import is_freshmanweek
+from core.utils.general import is_freshmanweek, audition_signup_open
 from talentshow.forms import AuditionForm, ChooseAuditionSlotForm, AuditionReminderForm, AuditionSignUpReminderForm
 from talentshow.models import Auditioner, AuditionSession, AuditionSignUpReminder
 
@@ -24,7 +24,7 @@ class SetAuditionReminderView(AjaxFormViewMixin, UpdateView):
         response = super(SetAuditionReminderView, self).valid_response(form)
         response.update({
             'reminder_text': form.cleaned_data.get('reminder_text'),
-            'reminder_email': form.cleaned_data.get('reminder_email'),
+            'reminder_email': True,
         })
         return response
 
@@ -34,14 +34,16 @@ class SetAuditionReminderView(AjaxFormViewMixin, UpdateView):
         """
         data = model_to_dict(self.object)
         data['reminder_text'] = self.request.POST.get('reminder_text')
-        data['reminder_email'] = self.request.POST.get('reminder_email')
         return form_class(instance=self.object, data=data)
 
     def get_object(self):
         secret = self.request.POST.get('secret')
         if not secret or not is_freshmanweek():
             raise Http404
-        return get_object_or_404(Auditioner, secret=secret)
+        obj = get_object_or_404(Auditioner, secret=secret)
+        if not obj.phone:
+            raise Http404
+        return obj
 
 
 class AuditionerSignUpView(CreateView):
@@ -50,9 +52,14 @@ class AuditionerSignUpView(CreateView):
     template_name = 'talentshow/sign-up.html'
 
     def post(self, request, *args, **kwargs):
-        if not is_freshmanweek():
+        if not audition_signup_open():
             return HttpResponseNotAllowed(['GET'])
         return super(AuditionerSignUpView, self).post(request, *args, **kwargs)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(AuditionerSignUpView, self).get_context_data(*args, **kwargs)
+        context.update({'audition_signup_open': audition_signup_open()})
+        return context
 
     def get_success_url(self):
         success_url = reverse('talentshow-choose-slot', kwargs={'secret': self.object.secret})
@@ -83,7 +90,7 @@ class ChooseAuditionSlotView(FormView):
         slot yet.
         """
         secret = self.kwargs.get('secret')
-        if not secret or not Auditioner.objects.filter(secret=secret).exists() or not is_freshmanweek():
+        if not secret or not Auditioner.objects.filter(secret=secret).exists() or not audition_signup_open():
             raise Http404
 
         if Auditioner.objects.filter(secret=secret).exclude(auditionslot=None).exists():
@@ -101,7 +108,7 @@ class ChooseAuditionSlotView(FormView):
         slot yet.
         """
         secret = self.kwargs.get('secret')
-        if not secret or not Auditioner.objects.filter(secret=secret).exists() or not is_freshmanweek():
+        if not secret or not Auditioner.objects.filter(secret=secret).exists() or not audition_signup_open():
             raise Http404
 
         if Auditioner.objects.filter(secret=secret).exclude(auditionslot=None).exists():
@@ -120,7 +127,7 @@ class ChooseAuditionSlotView(FormView):
         slot.auditioner = auditioner
         slot.save()
 
-        send_email.delay(
+        send_email(
             template_name='audition_confirm',
             subject='Talent Show Audition Confirmation',
             from_email=settings.HARVARD_TALENT_EMAIL,

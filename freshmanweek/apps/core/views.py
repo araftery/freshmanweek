@@ -3,6 +3,7 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse_lazy
 
 from core.models import Event
+from core.utils.general import audition_signup_open
 from talentshow.forms import AuditionForm, AuditionSignUpReminderForm
 
 class HomePageView(TemplateView):
@@ -15,9 +16,9 @@ class HomePageView(TemplateView):
         form = AuditionForm()
         form.helper.form_action = reverse_lazy('talentshow-sign-up')
         context['audition_form'] = form
-
         audition_signup_reminder_form = AuditionSignUpReminderForm()
         context['audition_signup_reminder_form'] = audition_signup_reminder_form
+        context['audition_signup_open'] = audition_signup_open()
         
         return context
 

@@ -100,12 +100,10 @@ class AuditionReminderForm(forms.ModelForm):
         self.helper.form_id = 'audition-reminder-form'
         self.helper.form_name = 'audition-reminder-form'
         self.helper.label_class = 'control-label'
-        self.fields['reminder_email'].label = 'Send me a reminder email the night before my audition.'
         self.fields['reminder_text'].label = 'Send me a reminder text an hour before my audition.'
 
         self.helper.layout = Layout(
             Div(
-                Field('reminder_email', wrapper_class="checkbox"),
                 Field('reminder_text', wrapper_class="checkbox"),
                 Field('secret', type="hidden"),
                 StrictButton('Save', css_class="btn btn-primary bg-red js-reminder-submit"),
@@ -114,7 +112,7 @@ class AuditionReminderForm(forms.ModelForm):
 
     class Meta:
         model = Auditioner
-        fields = ('reminder_email', 'reminder_text', 'secret')
+        fields = ('reminder_text', 'secret')
 
 
 class AuditionSignUpReminderForm(forms.ModelForm):

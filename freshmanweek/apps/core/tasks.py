@@ -5,9 +5,10 @@ from django.utils import timezone
 
 from celery.task import task
 
+from talentshow.utils.general import generate_audition_session_csv
 from core.utils.general import send_html_email
 from core.utils.general import send_text as send_text_utility
-from talentshow.models import Auditioner
+from talentshow.models import Auditioner, AuditionSignUpReminder, AuditionSession
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
 
@@ -15,9 +16,9 @@ logger = logging.getLogger(__name__)
 
 
 @task
-def send_email(template_name, subject, from_email, recipients, context):
+def send_email(template_name, subject, from_email, recipients, context, bcc=None, attachments=None):
     logger.info('Sending {} email to {}'.format(template_name, from_email))
-    return send_html_email(template_name, subject, from_email, recipients, context)
+    return send_html_email(template_name, subject, from_email, recipients, context, bcc, attachments)
 
 @task
 def send_text(template_name, recipient, context):
@@ -93,3 +94,43 @@ def send_reminder_texts():
         )
         auditioner.sent_reminder_text = True
         auditioner.save()
+
+
+def send_signup_open_emails():
+    people = AuditionSignUpReminder.objects.all()
+    for person in people:
+        send_email.delay(
+            template_name='audition_signup_open',
+            subject='Freshman Talent Show Sign-Ups are Open!',
+            from_email=settings.HARVARD_TALENT_EMAIL,
+            recipients=[person.email],
+            context={'person': person},
+        )
+
+@periodic_task(run_every=crontab(hour=7, minute=0))
+def send_auditionsession_csv():
+    sessions = AuditionSession.objects.all()
+    now = timezone.now()
+    attachments = []
+    for session in sessions:
+        if not session.start_time.date() == now.date():
+            continue
+
+        csvfile = generate_audition_session_csv(session)
+        attachments.append(['audition_session_{}.csv'.format(session.start_time.strftime('%m-%d')), csvfile.getvalue(), 'text/csv'])
+
+    if len(attachments) == 0:
+        return 0
+    elif len(attachments) > 1:
+        for i, attachment in enumerate(attachments):
+            attachment[0] = '{}-{}.csv'.format(attachment[0].replace('.csv', ''), i+1)
+
+    send_email.delay(
+        template_name='audition_csv',
+        subject="Today's Talent Show Auditioners: {}".format(now.strftime('%m/%d')),
+        from_email=settings.HARVARD_TALENT_EMAIL,
+        recipients=[settings.HARVARD_TALENT_EMAIL],
+        context={'sessions': sessions},
+        bcc=[i[1] for i in settings.ADMINS],
+        attachments=attachments,
+    )

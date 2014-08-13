@@ -48,7 +48,11 @@
             <div class="col-sm-12">
                 <h3 class="module-header">Freshman Talent Show Audition Sign-Ups</h3>
                 {% if is_fwk %}
-                    {% crispy audition_form %}
+                    {% if audition_signup_open %}
+                        {% crispy audition_form %}
+                    {% else %}
+                        <p>Sorry, talent show auditions are now closed.</p>
+                    {% endif %}
                 {% else %}
                 <div class="js-signup-reminder-module-container">
                     <p>Sorry, talent show audition sign-ups aren't open yet! They'll open on August 24th, the night before Freshman Move-In Day. If you'd like an email when they open, fill out the form below:</p>
