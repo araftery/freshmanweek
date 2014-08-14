@@ -27,7 +27,7 @@ def is_freshmanweek():
         return now >= fwk_start
 
 def audition_signup_open():
-    return is_freshmanweek() and all(i.remaining_slots_exist() for i in AuditionSession.objects.all())
+    return is_freshmanweek() and any(i.remaining_slots_exist() for i in AuditionSession.objects.all())
 
 def send_html_email(template_name, subject, from_email, recipients, context, bcc=None, attachments=None):
     plaintext = get_template('common/emails/{}.txt'.format(template_name))
