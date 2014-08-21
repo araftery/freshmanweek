@@ -30,11 +30,13 @@ def audition_signup_open():
     return is_freshmanweek() and any(i.remaining_slots_exist() for i in AuditionSession.objects.all())
 
 def send_html_email(template_name, subject, from_email, recipients, context, bcc=None, attachments=None):
+    if attachments is None:
+        attachments = []
     plaintext = get_template('common/emails/{}.txt'.format(template_name))
     htmly = get_template('common/emails/{}.html'.format(template_name))
     context.update({'title': subject, 'SITE_URL': u'http://{}'.format(site.domain)})
     d = Context(context)
-    
+
     reply_to_email = from_email
 
     text_content = plaintext.render(d)

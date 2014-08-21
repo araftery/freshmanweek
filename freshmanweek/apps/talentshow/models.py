@@ -28,6 +28,7 @@ class Auditioner(models.Model):
     email = models.EmailField(max_length=254, unique=True)
     phone = PhoneNumberField(null=True, blank=True)
     description = models.CharField(max_length=500)
+    props_info = models.CharField(max_length=500, null=True, blank=True)
     time_registered = models.DateTimeField(auto_now_add=True, blank=True)
     reminder_email = models.BooleanField(default=True)
     reminder_text = models.BooleanField(default=False)
@@ -108,6 +109,7 @@ class AuditionSlot(models.Model):
                 'Email': self.auditioner.email,
                 'Phone': self.auditioner.phone,
                 'Act Description': self.auditioner.description,
+                'Prop A/V Needs': self.auditioner.props_info,
             }
         else:
             return {
@@ -117,6 +119,7 @@ class AuditionSlot(models.Model):
                 'Email': '',
                 'Phone': '',
                 'Act Description': '',
+                'Prop A/V Needs': '',
             }
 
 

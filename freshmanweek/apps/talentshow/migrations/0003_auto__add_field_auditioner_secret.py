@@ -10,7 +10,7 @@ class Migration(SchemaMigration):
     def forwards(self, orm):
         # Adding field 'Auditioner.secret'
         db.add_column(u'talentshow_auditioner', 'secret',
-                      self.gf('django.db.models.fields.CharField')(default='default', max_length=40),
+                      self.gf('django.db.models.fields.CharField')(default='a', unique=True, max_length=40),
                       keep_default=False)
 
 
@@ -28,18 +28,27 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
             'phone': ('localflavor.us.models.PhoneNumberField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
-            'reminder_email': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'props_info': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
+            'reminder_email': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'reminder_text': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'secret': ('django.db.models.fields.CharField', [], {'default': "'default'", 'max_length': '40'}),
+            'secret': ('django.db.models.fields.CharField', [], {'default': "'a'", 'unique': 'True', 'max_length': '40'}),
             'sent_reminder_email': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'sent_reminder_text': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'sent_slot_reminder_email': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'time_registered': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'})
+            'time_registered': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
         },
         u'talentshow.auditionsession': {
             'Meta': {'object_name': 'AuditionSession'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'location': ('django.db.models.fields.CharField', [], {'max_length': '200'})
+        },
+        u'talentshow.auditionsignupreminder': {
+            'Meta': {'object_name': 'AuditionSignUpReminder'},
+            'created_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'}),
+            'email': ('django.db.models.fields.EmailField', [], {'unique': 'True', 'max_length': '254'}),
+            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         },
         u'talentshow.auditionslot': {
             'Meta': {'object_name': 'AuditionSlot'},

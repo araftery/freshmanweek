@@ -112,12 +112,14 @@ def send_auditionsession_csv():
     sessions = AuditionSession.objects.all()
     now = timezone.now()
     attachments = []
+    sessions_today = []
     for session in sessions:
         if not session.start_time.date() == now.date():
             continue
 
         csvfile = generate_audition_session_csv(session)
         attachments.append(['audition_session_{}.csv'.format(session.start_time.strftime('%m-%d')), csvfile.getvalue(), 'text/csv'])
+        sessions_today.append(session)
 
     if len(attachments) == 0:
         return 0
@@ -130,7 +132,7 @@ def send_auditionsession_csv():
         subject="Today's Talent Show Auditioners: {}".format(now.strftime('%m/%d')),
         from_email=settings.HARVARD_TALENT_EMAIL,
         recipients=[settings.HARVARD_TALENT_EMAIL],
-        context={'sessions': sessions},
+        context={'sessions': sessions_today},
         bcc=[i[1] for i in settings.ADMINS],
         attachments=attachments,
     )

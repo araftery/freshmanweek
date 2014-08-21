@@ -42,6 +42,7 @@ class AuditionForm(forms.ModelForm):
         self.helper.html5_required = True
 
         self.fields['description'].label = '(Very) brief description of act'
+        self.fields['props_info'].label = 'Props and A/V Needs (leave blank if none)'
 
         self.helper.layout = Layout(
             Div(
@@ -74,11 +75,18 @@ class AuditionForm(forms.ModelForm):
                 css_class="col-md-12"
             ),
             Div(
+                Div(
+                    Field('props_info', css_class="form-control"),
+                    css_class="form-group"
+                ),
+                css_class="col-md-12"
+            ),
+            Div(
                 Submit('submit', 'Submit', css_class="btn bg-red block"),
             ),
             Div(
                 Div(
-                    HTML("Groups of up to 4 are permitted. Only one member of a group needs to sign up for an audition. On the next page, you'll be asked to pick a time slot for your audition."),
+                    HTML("Groups of up to 4 are permitted. Only one member of a group needs to sign up for an audition. Act should be performance-ready. On the next page, you'll be asked to pick a time slot for your audition."),
                     css_class="col-sm-12 help-text",
                 ),
             ),
@@ -86,7 +94,7 @@ class AuditionForm(forms.ModelForm):
 
     class Meta:
         model = Auditioner
-        fields = ('first_name', 'last_name', 'email', 'phone', 'description')
+        fields = ('first_name', 'last_name', 'email', 'phone', 'description', 'props_info')
 
 
 class AuditionReminderForm(forms.ModelForm):
