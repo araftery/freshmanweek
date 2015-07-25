@@ -18,6 +18,6 @@ TIME_ZONE = 'America/New_York'
 STATIC_ROOT = '/webapps/freshmanweek/static/'
 STATIC_URL = '/static/'
 
-SETTINGS_MOUDLE = 'freshmanweek.settings.production'
+SETTINGS_MODULE = 'freshmanweek.settings.production'
 
 CELERY_RESULT_DBURI = "postgresql://freshmanweek:freshmanweek@localhost/freshmanweek"

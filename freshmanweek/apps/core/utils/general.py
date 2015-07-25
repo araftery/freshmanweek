@@ -3,7 +3,10 @@ import textwrap
 
 import pytz
 from twilio.rest import TwilioRestClient
-from premailer import transform
+try:
+    from premailer import transform
+except:
+    transform = lambda x: x
 
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.sites.models import Site

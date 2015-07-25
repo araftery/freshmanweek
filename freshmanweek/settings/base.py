@@ -1,7 +1,6 @@
 from datetime import timedelta
 import os
 
-from celery.schedules import crontab
 from path import path
 
 ############################################################

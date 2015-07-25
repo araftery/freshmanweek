@@ -30,4 +30,4 @@ DATABASES = {
 DEBUG = False
 TEMPLATE_DEBUG = False
 
-SETTINGS_MOUDLE = 'freshmanweek.settings.production_vps'
+SETTINGS_MODULE = 'freshmanweek.settings.production_vps'
