@@ -175,7 +175,7 @@ FWK_START_DATE = (2014, 8, 24, 0, 0)
 
 CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
 BROKER_URL = "amqp://freshmanweek:freshmanweek@localhost:5672/"
-CELERY_RESULT_DBURI = "postgresql://freshmanweek:password@localhost/"
+CELERY_RESULT_DBURI = "postgresql://freshmanweek:freshmanweek@localhost/"
 CELERY_ENABLE_UTC = True
 CELERY_TIMEZONE = TIME_ZONE
 
