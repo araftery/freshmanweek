@@ -127,7 +127,7 @@ class ChooseAuditionSlotView(FormView):
         slot.auditioner = auditioner
         slot.save()
 
-        send_email(
+        send_email.delay(
             template_name='audition_confirm',
             subject='Talent Show Audition Confirmation',
             from_email=settings.HARVARD_TALENT_EMAIL,
