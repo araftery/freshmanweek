@@ -145,4 +145,3 @@ class ChooseAuditionSlotView(FormView):
 class SetAuditionSignUpReminderView(AjaxFormViewMixin, CreateView):
     form = AuditionSignUpReminderForm
     model = AuditionSignUpReminder
-
