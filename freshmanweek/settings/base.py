@@ -111,7 +111,7 @@ URL_PATH = ''
 ##### EMAIL ################################################
 ############################################################
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 FROM_EMAIL = os.environ.get('FROM_EMAIL')
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
@@ -127,6 +127,11 @@ except ValueError:
 ADMINS = (
     ('Andrew Raftery', 'andrewraftery@gmail.com'),
 )
+
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+HARVARD_TALENT_EMAIL = 'Harvard Talent Show 2019 <harvardtalent19@gmail.com>'
+DEFAULT_FROM_EMAIL = HARVARD_TALENT_EMAIL
+MANDRILL_API_KEY = os.environ.get('MANDRILL_API_KEY')
 
 ############################################################
 ##### STATIC FILES #########################################
@@ -173,7 +178,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 ##### PROJECT-SPECIFIC #####################################
 ############################################################
 
-HARVARD_TALENT_EMAIL = 'Harvard Talent Show 2019 <harvardtalent19@gmail.com>'
 TWILIO_PHONE_NUMBER = '+16172998450'
 TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
