@@ -86,7 +86,7 @@ class AuditionForm(forms.ModelForm):
             ),
             Div(
                 Div(
-                    HTML("Groups of up to 4 are permitted. Only one member of a group needs to sign up for an audition. Act should be performance-ready. On the next page, you'll be asked to pick a time slot for your audition."),
+                    HTML("{% load talentshow_tags %}Groups of up to 4 are permitted. Only one member of a group needs to sign up for an audition. Act should be performance-ready. On the next page, you'll be asked to pick a time slot for your audition.<p>If you have any questions, or to change your audition time, please email {% talentshow_email %}.</p>"),
                     css_class="col-sm-12 help-text",
                 ),
             ),
