@@ -8,6 +8,7 @@ from celery.task import task
 from talentshow.utils.general import generate_audition_session_csv
 from core.utils.general import send_html_email
 from core.utils.general import send_text as send_text_utility
+from core.utils.general import audition_signup_open
 from talentshow.models import Auditioner, AuditionSignUpReminder, AuditionSession
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
@@ -27,6 +28,9 @@ def send_text(template_name, recipient, context):
 
 @periodic_task(run_every=crontab(hour="*/2", minute=0))
 def send_reminder_chooseslot_emails():
+    if not audition_signup_open():
+        return
+
     one_hour_ago = timezone.now() - datetime.timedelta(hours=1)
     auditioners = Auditioner.objects.filter(
         time_registered__lte=one_hour_ago,
