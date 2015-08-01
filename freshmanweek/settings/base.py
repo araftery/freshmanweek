@@ -173,7 +173,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 ##### PROJECT-SPECIFIC #####################################
 ############################################################
 
-HARVARD_TALENT_EMAIL = 'Harvard Talent Show 2019 <harvardtalent2019@gmail.com>'
+HARVARD_TALENT_EMAIL = 'Harvard Talent Show 2019 <harvardtalent19@gmail.com>'
 TWILIO_PHONE_NUMBER = '+16172998450'
 TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
