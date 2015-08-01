@@ -64,11 +64,11 @@ class AuditionSession(models.Model):
         return self.auditionslot_set.filter(start_time__gte=six_hours_ahead, auditioner=None).exists()
 
     def __unicode__(self):
+        if not self.start_time or not self.last_time:
+            return self.location
+
         start_time = timezone.localtime(self.start_time)
         last_time = timezone.localtime(self.last_time)
-
-        if not start_time or not last_time:
-            return self.location
 
         return '{}, {} - {}'.format(self.location, start_time.strftime('%m/%d/%y %X'), last_time.strftime('%X') if last_time.date() == start_time.date() else last_time.strftime('%m/%d/%y %X'))
 
@@ -95,20 +95,10 @@ class AuditionSlot(models.Model):
             return None
 
     def get_start_time(self):
-        time = None
-        try:
-            time = self.start_time.astimezone(tz)
-        except AttributeError:
-            pass
-        return time
+        return self.start_time.astimezone(tz)
 
     def get_end_time(self):
-        time = None
-        try:
-            time = self.end_time.astimezone(tz)
-        except AttributeError:
-            pass
-        return time
+        return self.end_time.astimezone(tz)
 
     def as_csv_dict(self):
         if self.auditioner:
