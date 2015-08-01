@@ -8,26 +8,27 @@
 {% endif %}
 <h2>Available Audition Slots:</h2>
 <div class="row">
-    <form method="POST">
-    {% csrf_token %}
     <div class="col-sm-8">
-    <div class="row">
-    {% for session in sessions %}
-    <h4 class="session-heading">{{ session.location }} {{ session.start_time|date:"n/d" }}</h4>
-        <div class="choose-slot-list">
-            {% for slot in session.slots %}
-            <div class="row slot slot-{{ slot.pk }}{% if slot.auditioner %} disabled{% endif %}">
-                    <div class="radio col-xs-1"><input type="radio" name="audition_slot" value="{{ slot.pk }}"{% if slot.auditioner %} disabled="disabled"{% endif %}/></div>
-                    <div class="slot-info col-xs-8">{{ slot.start_time|date:"g:i" }} - {{ slot.end_time|date:"g:i A" }}</div>
-            </div>
+        <form method="POST">
+        {% csrf_token %}
+            <div class="row">
+            {% for session in sessions %}
+                <h4 class="session-heading">{{ session.location }} {{ session.start_time|date:"n/d" }}</h4>
+                <div class="choose-slot-list">
+                    {% for slot in session.slots %}
+                    <div class="row slot slot-{{ slot.pk }}{% if slot.auditioner %} disabled{% endif %}">
+                            <div class="radio col-xs-1"><input type="radio" name="audition_slot" value="{{ slot.pk }}"{% if slot.auditioner %} disabled="disabled"{% endif %}/></div>
+                            <div class="slot-info col-xs-8">{{ slot.start_time|date:"g:i" }} - {{ slot.end_time|date:"g:i A" }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
             {% endfor %}
+            </div>
+        <div class="row row-submit text-center">
+            <button class="btn btn-primary btn-block bg-red col-sm-2" type="submit">Submit</button>
         </div>
-    {% endfor %}
+        </form>
     </div>
-    <div class="row row-submit text-center">
-        <button class="btn btn-primary btn-block bg-red col-sm-2" type="submit">Submit</button>
-    </div>
-    </form>
 
     <div class="col-sm-4">
         <h2>None of these times work?</h2>
