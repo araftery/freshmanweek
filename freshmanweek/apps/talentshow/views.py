@@ -90,8 +90,11 @@ class ChooseAuditionSlotView(FormView):
         slot yet.
         """
         secret = self.kwargs.get('secret')
-        if not secret or not Auditioner.objects.filter(secret=secret).exists() or not audition_signup_open():
+        if not secret or not Auditioner.objects.filter(secret=secret).exists():
             raise Http404
+
+        if not audition_signup_open():
+            return redirect('talentshow-sign-up')
 
         if Auditioner.objects.filter(secret=secret).exclude(auditionslot=None).exists():
             person = Auditioner.objects.filter(secret=secret).exclude(auditionslot=None)[0]
