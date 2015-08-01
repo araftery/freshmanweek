@@ -3,15 +3,15 @@
 
 {% block content %}
 <p class="alert alert-warning alert-top"><strong>Almost done!</strong> Please choose a slot and click "submit" below.</p>
-<p class="alert alert-warning alert-top"><strong>None of these times work for you?</strong> Email us at {% talentshow_email %} and we'll do our best to accomodate you.</p>
 {% if form.errors %}
     <p class="alert alert-danger alert-top"><strong>Error:</strong> You must select an available slot from the options below.</p>
 {% endif %}
-<h1>Available Audition Slots:</h1>
-<form method="POST">
-{% csrf_token %}
+<h2>Available Audition Slots:</h2>
 <div class="row">
-    <div class="col-sm-12">
+    <form method="POST">
+    {% csrf_token %}
+    <div class="col-sm-8">
+    <div class="row">
     {% for session in sessions %}
     <h4 class="session-heading">{{ session.location }} {{ session.start_time|date:"n/d" }}</h4>
         <div class="choose-slot-list">
@@ -24,12 +24,16 @@
         </div>
     {% endfor %}
     </div>
-</div>
-
-<div class="row row-submit text-center">
+    <div class="row row-submit text-center">
         <button class="btn btn-primary btn-block bg-red col-sm-2" type="submit">Submit</button>
+    </div>
+    </form>
+
+    <div class="col-sm-4">
+        <h2>None of these times work?</h2>
+        <p>Email us at {% talentshow_email %} and we'll do our best to accomodate you.</p>
+    </div>
 </div>
-</form>
 
 <script>
 $('input[type="radio"]').on('click', function(){
