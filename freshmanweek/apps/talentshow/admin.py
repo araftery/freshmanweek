@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.contrib import admin
+from django.contrib import admin, messages
 
 from core.tasks import send_email
 
@@ -35,6 +35,8 @@ class AuditionSlotAdmin(admin.ModelAdmin):
                 recipients=[obj.auditioner.email],
                 context={'slot': obj}
             )
+
+            messages.success(request, 'Confirmation email sent.')
 
 
 class AuditionSignUpReminderAdmin(admin.ModelAdmin):
