@@ -1,5 +1,5 @@
 {% extends "common/base.html" %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags talentshow_tags %}
 
 {% block content %}
 <div class="row">
@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-4">
         <h3 class="module-header">Questions?</h3>
-        <p>If you have any questions, or to change your audition time, please email <span class="email">harvardtale<span class="nospam">no_spam</span>nt2018@gmail.com</span></p>
+        <p>If you have any questions, or to change your audition time, please email {% talentshow_email %}.</p>
     </div>
 </div><!-- /.row -->
 
@@ -20,7 +20,7 @@
                 {% if audition_signup_open %}
                     {% crispy form %}
                 {% else %}
-                    <p>All of our audition slots have been filled. Please email <span class="email">harvardtale<span class="nospam">no_spam</span>nt2018@gmail.com</span> if you are still interested in auditioning, and we'll try to accommodate you for Saturday from 11 - 2.</p>
+                    <p>All of our audition slots have been filled. Please email {% talentshow_email %} if you are still interested in auditioning, and we'll try to accommodate you for Saturday from 11 - 2.</p>
                 {% endif %}
             {% else %}
                 Come back during Freshman Week and sign up to audition for the talent show!

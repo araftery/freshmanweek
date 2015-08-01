@@ -130,6 +130,7 @@ ADMINS = (
 
 EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 HARVARD_TALENT_EMAIL = 'Harvard Talent Show 2019 <harvardtalent19@gmail.com>'
+HARVARD_TALENT_EMAIL_ADDRESS = 'harvardtalent19@gmail.com'
 DEFAULT_FROM_EMAIL = HARVARD_TALENT_EMAIL
 MANDRILL_API_KEY = os.environ.get('MANDRILL_API_KEY')
 
