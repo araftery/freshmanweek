@@ -95,10 +95,20 @@ class AuditionSlot(models.Model):
             return None
 
     def get_start_time(self):
-        return self.start_time.astimezone(tz)
+        time = None
+        try:
+            time = self.start_time.astimezone(tz)
+        except AttributeError:
+            pass
+        return time
 
     def get_end_time(self):
-        return self.end_time.astimezone(tz)
+        time = None
+        try:
+            time = self.end_time.astimezone(tz)
+        except AttributeError:
+            pass
+        return time
 
     def as_csv_dict(self):
         if self.auditioner:
