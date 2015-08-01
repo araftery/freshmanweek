@@ -6,9 +6,9 @@
 {% if form.errors %}
     <p class="alert alert-danger alert-top"><strong>Error:</strong> You must select an available slot from the options below.</p>
 {% endif %}
-<h2>Available Audition Slots:</h2>
 <div class="row">
-    <div class="col-sm-8">
+    <div class="col-md-8">
+    <h2>Available Audition Slots:</h2>
         <form method="POST">
         {% csrf_token %}
             <div class="row">
@@ -30,7 +30,7 @@
         </form>
     </div>
 
-    <div class="col-sm-4">
+    <div class="col-md-4">
         <h2>None of these times work?</h2>
         <p>Email us at {% talentshow_email %} and we'll do our best to accomodate you.</p>
     </div>
