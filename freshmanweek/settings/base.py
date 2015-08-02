@@ -111,7 +111,7 @@ URL_PATH = ''
 ##### EMAIL ################################################
 ############################################################
 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 FROM_EMAIL = os.environ.get('FROM_EMAIL')
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
@@ -128,7 +128,7 @@ ADMINS = (
     ('Andrew Raftery', 'andrewraftery@gmail.com'),
 )
 
-EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
+#EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 HARVARD_TALENT_EMAIL = 'Harvard Talent Show 2019 <harvardtalent19@gmail.com>'
 HARVARD_TALENT_EMAIL_ADDRESS = 'harvardtalent19@gmail.com'
 DEFAULT_FROM_EMAIL = HARVARD_TALENT_EMAIL
