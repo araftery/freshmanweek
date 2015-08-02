@@ -118,7 +118,7 @@ def send_auditionsession_csv():
     attachments = []
     sessions_today = []
     for session in sessions:
-        if not session.start_time.date() == now.date():
+        if session.start_time.date() != now.date():
             continue
 
         csvfile = generate_audition_session_csv(session)
