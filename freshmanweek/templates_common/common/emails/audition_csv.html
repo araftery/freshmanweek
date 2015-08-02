@@ -8,7 +8,7 @@
             Attached are spreadsheets listing the audition slots and auditioners for today's talent show audition sessions:
             <ul>
                 {% for session in sessions %}
-                    <li>{{ session.start_time|date:'g:i a' }} - {{ session.last_time|date:'g:i a' }}</li>
+                    <li>{{ session.start_time|date:'g:i a' }} - {{ session.last_time|date:'g:i a' }} in {{ session.location }}</li>
                 {% endfor %}
             </ul>
         </td>
