@@ -1,5 +1,7 @@
 import datetime, logging
 
+import pytz
+
 from django.conf import settings
 from django.utils import timezone
 
@@ -114,7 +116,7 @@ def send_signup_open_emails():
 @periodic_task(run_every=crontab(hour=7, minute=0))
 def send_auditionsession_csv():
     sessions = AuditionSession.objects.all()
-    now = timezone.now()
+    now = timezone.now().astimezone(pytz.timezone('America/New_York'))
     attachments = []
     sessions_today = []
     for session in sessions:
