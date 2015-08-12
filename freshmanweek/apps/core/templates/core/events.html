@@ -16,7 +16,7 @@
                         {{ event.description|markdown|safe }}
                     </div>
                     <div class="event-details">
-                    <div class="event-time"><strong>When: </strong>{{ event.start_time|date:"l, N j" }}, {% if event.extra_info %}{{ extra_info }}{% else %}{{ event.start_time|date:"P" }} - {{ event.end_time|date:"P" }}{% endif %}</div>
+                    <div class="event-time"><strong>When: </strong>{{ event.start_time|date:"l, N j" }}, {% if event.extra_info %}{{ event.extra_info }}{% else %}{{ event.start_time|date:"P" }} - {{ event.end_time|date:"P" }}{% endif %}</div>
                     {% if event.location %}<div class="event-location"><strong>Where: </strong>{{ event.location }}</div>{% endif %}
                     </div>
             </div>
