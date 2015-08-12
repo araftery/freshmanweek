@@ -39,7 +39,7 @@
             {% endif %}
 
             <div class="event-details">
-            <div class="event-time"><strong>When:</strong> {{ event.start_time|date:"n/j"}} {{ event.start_time|date:"P"}} - {{ event.end_time|date:"P"}}{% if event.extra_info %} ({{ extra_info }}){% endif %}</div>
+            <div class="event-time"><strong>When:</strong> {{ event.start_time|date:"n/j"}} {{ event.start_time|date:"P"}} - {{ event.end_time|date:"P"}}{% if event.extra_info %} ({{ event.extra_info }}){% endif %}</div>
             {% if event.location %}<div class="event-location"><strong>Where:</strong> {{ event.location }}</div>{% endif %}
             </div>
         </div>
