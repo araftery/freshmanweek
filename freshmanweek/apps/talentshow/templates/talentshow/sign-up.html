@@ -16,15 +16,54 @@
 <div class="row">
     <div class="col-sm-12">
         <h3 class="module-header">Sign Up to Audition!</h3>
-            {% if is_fwk %}
-                {% if audition_signup_open %}
-                    {% crispy form %}
+                {% if is_fwk %}
+                    {% if audition_signup_open %}
+                        {% crispy audition_form %}
+                    {% else %}
+                        <p>All of our audition slots have been filled. Please email {% talentshow_email %} if you are still interested in auditioning, and we'll try to accommodate you for Saturday from 11 - 2.</p>
+                    {% endif %}
                 {% else %}
-                    <p>All of our audition slots have been filled. Please email {% talentshow_email %} if you are still interested in auditioning, and we'll try to accommodate you for Saturday from 11 - 2.</p>
+                <div class="js-signup-reminder-module-container">
+                    <p>Sorry, talent show audition sign-ups aren't open yet! They'll open on August 23rd, the night before Freshman Move-In Day. If you'd like an email when they open, fill out the form below:</p>
+                    <div class="js-signup-reminder-container">
+                        {% crispy audition_signup_reminder_form %}
+                    </div>
+                </div>
                 {% endif %}
-            {% else %}
-                Come back during Freshman Week and sign up to audition for the talent show!
-            {% endif %}
     </div>
 </div>
+
+<script>
+    function toTitleCase(str)
+    {
+        return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    }
+
+    $('.js-signup-reminder-btn').on('click', function(e){
+        e.preventDefault();
+        $('.js-signup-reminder-form-error').remove();
+        var $form = $('#audition-signup-reminder-form');
+        var data = $form.serializeArray();
+        $.ajax({
+            type:"POST",
+            url:"/talent-show/set-signup-reminder/",
+            data: data,
+            success: function(response){
+                if (response.errors) {
+                    $.each(response.errors, function(field, msg) {
+                        var errorMessage = '<p class="alert alert-danger js-signup-reminder-form-error"><strong>' + toTitleCase(field.replace('_', ' ')) + ':</strong> ' + msg + '</p>';
+                        $('.js-signup-reminder-container').prepend(errorMessage);
+                    });
+                } else {
+                    var successMessage = "<p class='alert alert-success'><strong>Success!</strong> We'll send you an email when the sign-up form opens!</p>";
+                    $('.js-signup-reminder-module-container').html(successMessage);
+                }
+            },
+            error: function(xhr, textStatus, errorThrown){
+                var errorMessage = '<p class="alert alert-danger js-signup-reminder-form-error">Sorry, an error occurred.</p>';
+                $('.js-signup-reminder-container').prepend(errorMessage);
+            }
+        });
+    });
+</script>
 {% endblock content %}

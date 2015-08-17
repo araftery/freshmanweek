@@ -59,6 +59,7 @@ class AuditionerSignUpView(CreateView):
     def get_context_data(self, *args, **kwargs):
         context = super(AuditionerSignUpView, self).get_context_data(*args, **kwargs)
         context.update({'audition_signup_open': audition_signup_open()})
+        context.update({'audition_signup_reminder_form': AuditionSignUpReminderForm()})
         return context
 
     def get_success_url(self):
