@@ -11,8 +11,8 @@ DATABASES = {
     }
 }
 
-DEBUG = False
-TEMPLATE_DEBUG = False
+DEBUG = True
+TEMPLATE_DEBUG = True
 TIME_ZONE = 'America/New_York'
 
 STATIC_ROOT = '/webapps/freshmanweek/static/'
