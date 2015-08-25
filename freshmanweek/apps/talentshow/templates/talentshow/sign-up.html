@@ -18,7 +18,7 @@
         <h3 class="module-header">Sign Up to Audition!</h3>
                 {% if is_fwk %}
                     {% if audition_signup_open %}
-                        {% crispy audition_form %}
+                        {% crispy form %}
                     {% else %}
                         <p>All of our audition slots have been filled. Please email {% talentshow_email %} if you are still interested in auditioning, and we'll try to accommodate you for Saturday from 11 - 2.</p>
                     {% endif %}
