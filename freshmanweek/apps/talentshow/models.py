@@ -32,7 +32,7 @@ class Auditioner(models.Model):
     time_registered = models.DateTimeField(auto_now_add=True, blank=True)
     reminder_email = models.BooleanField(default=True)
     reminder_text = models.BooleanField(default=False)
-    in_show = models.BooleanField(default=False)
+    #in_show = models.BooleanField(default=False)
 
     secret = models.CharField(default=_generate_secret, max_length=40, unique=True)
 
