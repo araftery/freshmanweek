@@ -24,7 +24,7 @@ gunicorn==19.1.0
 newrelic==2.22.1.20
 django-compressor
 djrill==1.1.1
-celery==3.1.13
+celery==5.2.2
 django-celery==3.1.10
 twilio==3.6.6
 premailer==2.5.0
